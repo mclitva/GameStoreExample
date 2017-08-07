@@ -1,0 +1,28 @@
+﻿@model GameStore.Domain.Entities.Game
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h1>Редактирование "@Model.Name"</h1>
+@using (Html.BeginForm("Edit","Admin",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.EditorForModel()
+    <div class ="editor-label">Изображение</div>
+    <div class="editor-field">
+        @if (Model.ImageData == null)
+        {
+            @: Пусто
+        }
+        else
+        {
+            <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { Model.GameId })" />
+        }
+        <div>Загрузить новое изображение:
+            <input type="file" name="Image" /></div>
+    </div>
+    <input type="submit" value="Сохранить" />
+    @Html.ActionLink("Отменить и вернуться к списку", "Index");
+}
+
